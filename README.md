@@ -1,230 +1,292 @@
-# Valsia Skill Mentor – Phase 1 MVP
+# 🚀 INNOVATO
 
-> **An AI-powered skill-to-job conversion engine that helps learners transform scattered skills into clear, employable career paths.**
+### AI-Powered Skill Development & Career Readiness Platform
 
----
+**Bridging the Gap Between Education and Employment Through AI**
 
-## 🚩 Problem Statement
+INNOVATO is an AI-powered career readiness platform designed to help students identify skill gaps, build industry-relevant competencies, complete real-world projects, and become job-ready professionals.
 
-Today, students and early professionals learn skills without clarity on:
-- Whether those skills are **market-relevant**
-- Which **job roles** they are actually suited for
-- What **exact steps** are needed to become job-ready
-
-This results in wasted time, confusion, and poor career decisions.
+Built for **SahAI for Shiksha Hackathon 2026**, INNOVATO addresses critical challenges in higher education, employability, skill assessment, and education-to-employment pathways.
 
 ---
 
-## 💡 Solution
+## 🌟 Problem Statement
 
-**Valsia Skill Mentor** analyzes a user’s existing skills and provides:
-- Best-fit job role recommendations
-- Job-readiness scoring
-- Skill gap identification
-- A clear **30-day execution roadmap**
+Millions of students graduate every year with degrees and certifications, yet many struggle to secure meaningful employment.
 
-This repository represents the **Phase-1 MVP prototype** of Valsia, focused solely on the **Skill Mentor module**.
+Current challenges include:
 
----
+* Lack of personalized career guidance
+* Limited visibility into industry-required skills
+* Weak practical and project-based experience
+* Difficulty demonstrating real-world competency
+* Fragmented pathways from education to employment
 
-## ✨ Key Features
-
-- 🔍 **Skill Analysis Engine**  
-  Evaluates user skills against real-world job requirements
-
-- 🎯 **Job Role Mapping**  
-  Suggests suitable roles with confidence scoring
-
-- 📉 **Skill Gap Detection**  
-  Identifies missing or weak skills required for target roles
-
-- 🗓 **30-Day Action Roadmap**  
-  Provides a step-by-step plan to move toward employability
-
-- 🕹 **Gamified Dashboard (Prototype)**  
-  XP, levels, journeys, and progress visualization
+INNOVATO solves these challenges through AI-powered assessment, guidance, and career development.
 
 ---
 
-## 🧠 Why It’s Different
+## 🎯 Our Solution
 
-- Focuses on **conversion to employability**, not just learning
-- Highlights **skill waste** and irrelevant learning paths
-- Execution-first approach instead of generic recommendations
-- Designed as a **mentor**, not a chatbot
+INNOVATO acts as a personal AI career strategist that helps learners:
 
----
+✅ Assess current capabilities
 
-## ⚙️ How to Run the Project Locally
+✅ Identify skill gaps
 
-This project is designed to run completely on **localhost** using **Docker** and a **local LLaMA-based LLM**.
+✅ Generate personalized learning roadmaps
 
----
+✅ Build industry-aligned projects
 
-### 🔧 Prerequisites
+✅ Explore career progression pathways
 
-Ensure the following are installed on your system:
-
-- Git
-- Docker (v20+)
-- Docker Compose
-- Minimum 8 GB RAM (recommended for local LLM inference)
+✅ Track employability and career readiness
 
 ---
 
-### 📥 Step 1: Clone the Repository
+## ✨ Core Features
 
-```bash
-git clone https://github.com/<your-username>/valsia-skill-mentor-mvp.git
-cd valsia-skill-mentor-mvp
+### 🤖 AI Career Assistant
 
-🧠 Step 2: Download a Local LLaMA Model
-Download any GGUF-compatible LLaMA / Mistral model
-(7B models are recommended for local execution).
+An intelligent AI assistant that provides:
 
-Example sources:
+* Career guidance
+* Learning recommendations
+* Skill planning
+* Project suggestions
+* Career readiness advice
 
-Hugging Face (GGUF format)
+Powered by Featherless AI.
 
-TheBloke repositories
+---
 
-After downloading, place the model file inside the following directory:
+### 📊 Skill Gap Intelligence
 
-/models
+Compare a student's current skills against target role requirements.
+
+Features:
+
+* Skill match analysis
+* Missing skill detection
+* Readiness scoring
+* Personalized recommendations
+* Learning priority generation
+
+---
+
+### 🛤 Career Path Explorer
+
+Interactive visualization of career progression pathways.
+
 Example:
 
-/models/llama-2-7b.gguf
-⚠️ LLM model files are not included in this repository due to size and licensing constraints.
+AI Engineer
 
-🔐 Step 3: Environment Configuration
-Create an environment file:
+→ ML Engineer
 
-cp .env.example .env
-Update the .env file with the following values:
+→ Senior ML Engineer
 
-LLM_PROVIDER=local
-LLM_MODEL_PATH=/models/llama-2-7b.gguf
-BACKEND_PORT=5000
-FRONTEND_PORT=3000
-No external API keys are required to run the project locally.
+→ AI Architect
 
-🐳 Step 4: Run the Project Using Docker
-Start all services using Docker Compose:
+→ Head of AI
 
-docker compose up --build
-This command will start:
+Includes:
 
-Frontend application
-
-Backend API server
-
-Local LLM inference service
-
-🌐 Step 5: Access the Application
-Once the containers are running, open your browser:
-
-Frontend: http://localhost:3000
-Backend API: http://localhost:5000
-🧪 How to Test the Application
-Open the frontend URL in your browser
-
-Enter sample skills (e.g., Python, SQL, React)
-
-Submit the form
-
-Review the generated:
-
-Job role suggestions
-
-Readiness score
-
-Skill gap analysis
-
-## 🔐 Deployment Note
-
-This Phase-1 MVP currently runs in a secure local environment using containerized services and local LLM inference.  
-For security and intellectual property reasons, a public deployment is not exposed at this stage.  
-
-This repository focuses on demonstrating product flow, architecture, and core logic of our Educational AI SaaS..
+* Role descriptions
+* Required skills
+* Recommended projects
+* Growth timelines
 
 ---
 
-## 📂 Repository Scope
+### 📈 Employability Insights Dashboard
 
-### Included
-- Frontend UI prototype
-- Abstracted backend logic
-- Mock / sample AI responses
-- Screenshots of the working system
-- Documentation and flow explanation
+Track career readiness through data-driven analytics.
 
-### Excluded
-- Production AI prompts
-- Docker images and LLM models
-- Internal Dify workflows
-- Supabase secrets or API keys
-- Full production infrastructure
+Metrics include:
+
+* Career Readiness Score
+* Portfolio Strength
+* Skill Growth
+* Project Completion
+* Learning Progress
+* Weekly Trends
 
 ---
 
-## 🧪 Demo Flow
+### 🗺 Personalized Growth Roadmaps
 
-1. User enters existing skills  
-2. System evaluates market relevance  
-3. Suitable job roles are suggested  
-4. Skill gaps are identified  
-5. A personalized 30-day roadmap is generated  
+Generate customized learning pathways based on:
 
----
-
-## 🚀 Future Scope (Not Part of This MVP)
-
-- Exam preparation modules  
-- Real-time mentor feedback  
-- Skill validation through projects  
-- Community learning rooms  
-- Job application alignment  
+* Career goals
+* Current skill level
+* Learning progress
+* Industry requirements
 
 ---
 
-## 📌 Important Note
+### 💼 Industry-Aligned Project Engine
 
-This project is a **prototype MVP built for hackathon evaluation** and represents **Phase-1 of the Valsia platform roadmap**.
+Receive practical project recommendations that strengthen portfolios and improve employability.
 
----
+Projects are categorized by:
 
-## 👥 Team
-
-Built by a student VALSIA startup team focused on bridging the gap between  
-learning, skills, and employability.
-
-ADITHYAN J 
-ISHACK S
-TAARUNYA GIRIRAJ
-PRANDYA SUNDAR
+* Beginner
+* Intermediate
+* Advanced
 
 ---
 
-## 📄 License
-
-Shared strictly for demonstration and evaluation purposes.
-
-
-
-## 🏗 High-Level Architecture
+## 🏗 System Architecture
 
 ```text
-User Input (Skills)
-        ↓
-Skill Evaluation Engine
-        ↓
-Job Role Mapping + Readiness Score
-        ↓
-Skill Gap Analysis
-        ↓
-30-Day Execution Roadmap
+Student
+   │
+   ▼
+Frontend (React + TypeScript)
+   │
+   ▼
+API Layer
+   │
+   ▼
+Featherless AI
+   │
+   ▼
+AI Intelligence Engine
+   │
+   ├── Skill Gap Analysis
+   ├── Career Path Generation
+   ├── Roadmap Creation
+   ├── Project Recommendations
+   └── Employability Insights
+   │
+   ▼
+Dashboard & Analytics
+```
 
-## Note:
-You May Need to Modify The Code A Little Bit To Change The API Keys To Your Specific API Keys So The Features Can Work
+---
 
+## 🛠 Tech Stack
 
+### Frontend
+
+* React
+* TypeScript
+* Tailwind CSS
+* Framer Motion
+
+### AI
+
+* Featherless AI
+* Qwen/Qwen3-14B
+
+### Backend
+
+* API Routes
+* Service Layer Architecture
+
+### Deployment
+
+* Vercel
+
+---
+
+## 🎓 Hackathon Alignment
+
+### 3.1 Access to Skilling & Career Pathways
+
+* Personalized career guidance
+* AI-powered mentorship
+* Career pathway visibility
+
+### 3.2 Job Readiness & Entrepreneurial Skills
+
+* Practical project recommendations
+* Industry-aligned growth plans
+* Career readiness tracking
+
+### 3.3 Skills Assessment & Proficiency Signaling
+
+* Skill Gap Intelligence
+* Readiness scoring
+* Capability-based assessment
+
+### 3.5 Education-to-Employment Pathways
+
+* Guided career progression
+* Skill validation
+* Employability insights
+
+---
+
+## 🚀 Getting Started
+
+### Clone Repository
+
+```bash
+git clone https://github.com/kiyotakaaKira/INNOVATO.git
+cd INNOVATO
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Configure Environment Variables
+
+Create:
+
+```env
+.env.local
+```
+
+Add:
+
+```env
+FEATHERLESS_API_KEY=YOUR_API_KEY
+FEATHERLESS_BASE_URL=https://api.featherless.ai/v1
+FEATHERLESS_MODEL=Qwen/Qwen3-14B
+```
+
+### Start Development Server
+
+```bash
+npm run dev
+```
+
+---
+
+## 📌 Future Scope
+
+* Resume Intelligence Engine
+* AI Interview Preparation
+* Internship Recommendation System
+* Industry Skill Benchmarking
+* Regional Language Support
+* Institution Analytics Dashboard
+
+---
+
+## 👨‍💻 Team
+
+### Adithyan
+
+Founder & Product Lead
+
+Artificial Intelligence & Data Science
+
+Focused on building AI-powered systems that improve education, employability, and student growth.
+
+---
+
+## 🌍 Vision
+
+We believe degrees alone should not determine opportunity.
+
+INNOVATO aims to become an AI-powered career growth ecosystem where learners can discover their potential, build meaningful skills, demonstrate real capability, and confidently transition from education to employment.
+
+---
+
+### From Learning to Employability 🚀
