@@ -2,12 +2,13 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Upload, Link as LinkIcon, Github, Linkedin, Code2, Award, Briefcase, Plus, ArrowRight } from "lucide-react"
+import { Upload, Link as LinkIcon, Github, Linkedin, Code2, Award, Briefcase, Plus, ArrowRight, CheckCircle2, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
+import { useToast } from "@/hooks/use-toast"
 
 const masteredSkills = ["React", "TypeScript", "Next.js", "Node.js", "Tailwind CSS"]
 const inProgressSkills = ["Python", "Machine Learning", "Data Visualization"]
@@ -27,6 +28,92 @@ export default function ProfilePage() {
   const [github, setGithub] = useState("")
   const [linkedin, setLinkedin] = useState("")
   const [portfolio, setPortfolio] = useState("")
+  const [resumeFile, setResumeFile] = useState<File | null>(null)
+  const [isSaving, setIsSaving] = useState(false)
+  const [saveStatus, setSaveStatus] = useState<"idle" | "success" | "error">("idle")
+  const { toast } = useToast()
+
+  const handleSaveLinks = async () => {
+    try {
+      setIsSaving(true)
+      setSaveStatus("idle")
+
+      // Validate at least one URL or resume
+      if (!github && !linkedin && !portfolio && !resumeFile) {
+        toast({
+          title: "Error",
+          description: "Please add at least one link or upload a resume.",
+          variant: "destructive",
+        })
+        setIsSaving(false)
+        return
+      }
+
+      const formData = new FormData()
+      if (github) formData.append("github", github)
+      if (linkedin) formData.append("linkedin", linkedin)
+      if (portfolio) formData.append("portfolio", portfolio)
+      if (resumeFile) formData.append("resume", resumeFile)
+
+      const response = await fetch("/api/profile", {
+        method: "POST",
+        body: formData,
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to save profile")
+      }
+
+      setSaveStatus("success")
+      toast({
+        title: "Success",
+        description: "Your profile has been updated!",
+      })
+
+      setResumeFile(null)
+
+      // Reset status after 3 seconds
+      setTimeout(() => setSaveStatus("idle"), 3000)
+    } catch (error: any) {
+      setSaveStatus("error")
+      toast({
+        title: "Error",
+        description: error.message || "Failed to save profile",
+        variant: "destructive",
+      })
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
+  const handleResumeSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      if (file.type !== "application/pdf") {
+        toast({
+          title: "Error",
+          description: "Only PDF files are allowed.",
+          variant: "destructive",
+        })
+        return
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        toast({
+          title: "Error",
+          description: "File size must be less than 5MB.",
+          variant: "destructive",
+        })
+        return
+      }
+      setResumeFile(file)
+      toast({
+        title: "Success",
+        description: `Resume selected: ${file.name}`,
+      })
+    }
+  }
 
   return (
     <div className="p-6 lg:p-8 max-w-5xl mx-auto min-h-screen">
@@ -94,7 +181,42 @@ export default function ProfilePage() {
                   className="pl-9 bg-secondary/50 border-indigo-500/20"
                 />
               </div>
-              <Button className="w-full bg-indigo-600 hover:bg-indigo-500">Save Links</Button>
+              <Button 
+                onClick={handleSaveLinks}
+                disabled={isSaving}
+                className={`w-full gap-2 transition-all ${
+                  saveStatus === "success"
+                    ? "bg-green-600 hover:bg-green-500"
+                    : saveStatus === "error"
+                      ? "bg-red-600 hover:bg-red-500"
+                      : "bg-indigo-600 hover:bg-indigo-500"
+                }`}
+              >
+                {isSaving ? (
+                  <>
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                      className="inline-block"
+                    >
+                      <Upload className="w-4 h-4" />
+                    </motion.div>
+                    Saving...
+                  </>
+                ) : saveStatus === "success" ? (
+                  <>
+                    <CheckCircle2 className="w-4 h-4" />
+                    Saved!
+                  </>
+                ) : saveStatus === "error" ? (
+                  <>
+                    <AlertCircle className="w-4 h-4" />
+                    Try Again
+                  </>
+                ) : (
+                  "Save Profile"
+                )}
+              </Button>
             </div>
           </motion.div>
 
@@ -106,11 +228,29 @@ export default function ProfilePage() {
             className="glass-panel p-6 rounded-2xl"
           >
             <h3 className="font-semibold text-foreground mb-4">Resume</h3>
-            <div className="border-2 border-dashed border-indigo-500/30 rounded-xl p-8 flex flex-col items-center justify-center text-center hover:bg-indigo-500/5 transition-colors cursor-pointer">
+            <label className="border-2 border-dashed border-indigo-500/30 rounded-xl p-8 flex flex-col items-center justify-center text-center hover:bg-indigo-500/5 transition-colors cursor-pointer">
+              <input
+                type="file"
+                accept=".pdf"
+                className="hidden"
+                onChange={handleResumeSelect}
+              />
               <Upload className="w-8 h-8 text-indigo-400 mb-3" />
-              <p className="text-sm font-medium text-foreground">Upload Resume (PDF)</p>
+              <p className="text-sm font-medium text-foreground">
+                {resumeFile ? resumeFile.name : "Upload Resume (PDF)"}
+              </p>
               <p className="text-xs text-muted-foreground mt-1">Max 5MB</p>
-            </div>
+            </label>
+            {resumeFile && (
+              <motion.button
+                onClick={() => setResumeFile(null)}
+                className="mt-3 w-full text-sm text-muted-foreground hover:text-foreground transition-colors"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              >
+                Clear selection
+              </motion.button>
+            )}
           </motion.div>
         </div>
 
